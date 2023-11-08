@@ -8,10 +8,10 @@ stockfishHandler.init();
 const server = http.createServer(async (req, res) => {
   const queryObject = url.parse(req.url, true).query;
 
-  if (queryObject.command) {
+  if (queryObject.q) {
     try {
 			console.log('start')
-      const stockfishResponse = await stockfishHandler.sendCommand(queryObject.command);
+      const stockfishResponse = await stockfishHandler.sendCommand(queryObject.q);
 			console.log('end')
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(stockfishResponse);
@@ -21,7 +21,7 @@ const server = http.createServer(async (req, res) => {
     }
   } else {
     res.writeHead(400, { 'Content-Type': 'text/plain' });
-    res.end('Please provide a command to send to Stockfish using the "command" query parameter.\n');
+    res.end('Please provide a command to send to Stockfish using the "q" query parameter.\n');
   }
 });
 
